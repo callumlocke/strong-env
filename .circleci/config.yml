@@ -1,9 +1,13 @@
 version: 2.1
 
 orbs:
-    hello: circleci/hello-build@0.0.5
+    node: circleci/node@1.0.1
 
 workflows:
-    "Hello Workflow":
+    "Build":
         jobs:
-          - hello/hello-build
+          - with-cache
+              steps:
+                - node/install
+                  - version: 8
+                - node/install-yarn
