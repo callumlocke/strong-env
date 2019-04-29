@@ -1,0 +1,39 @@
+{
+  "name": "strong-env",
+  "version": "0.0.0",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-typescript": "^7.3.3",
+    "@typescript-eslint/eslint-plugin": "^1.4.2",
+    "@typescript-eslint/parser": "^1.4.2",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-react": "^7.11.0",
+    "flowgen": "^1.8.2",
+    "prettier": "^1.16.4",
+    "typescript": "^3.3.3333"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "yarn clean && yarn babel-compile && yarn tsc && flowgen dist/index.d.ts -o dist/index.js.flow",
+    "babel-compile": "babel --extensions '.ts' --out-dir dist src",
+    "fix": "yarn run formatting:fix && yarn run linting:fix",
+    "formatting:fix": "yarn run prettier './**/*.js' './**/*.ts' './**/*.tsx' --write",
+    "formatting:check": "yarn run prettier './**/*.js' './**/*.ts' './**/*.tsx' --check",
+    "linting:check": "eslint --ext js,ts,tsx .",
+    "linting:fix": "eslint --ext js,ts,tsx . --fix",
+    "test": "yarn run formatting:check && yarn run linting:check"
+  }
+}
