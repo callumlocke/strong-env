@@ -6,8 +6,8 @@ orbs:
 workflows:
     "Build":
         jobs:
-          - with-cache
+          - node/with-cache:
               steps:
-                - node/install
-                  - version: 8
+                - node/install:
+                    version: 8
                 - node/install-yarn
