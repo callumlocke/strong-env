@@ -28,7 +28,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/project
-      - yarn
+      - run: yarn run linting:check
   
   check_formatting:
     <<: *defaults
@@ -44,6 +44,12 @@ jobs:
           at: ~/project
       - run: yarn run jest
 
+  build:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run: yarn run build
 
   deploy:
     <<: *defaults
@@ -56,7 +62,7 @@ jobs:
 
 workflows:
   version: 2
-  test_etc:
+  test_build_deploy:
     jobs:
       - install_dependencies
 
@@ -71,12 +77,17 @@ workflows:
       - unit_tests:
           requires:
             - install_dependencies
+      
+      - build:
+          requires:
+            - install_dependencies
 
       - deploy:
           requires:
             - lint
             - check_formatting
             - unit_tests
+            - build
           # filters:
           #   tags:
           #     only: /^v.*/
