@@ -66,18 +66,18 @@ jobs:
           root: ~/project
           paths: dist
 
-  deploy:
+  release:
     <<: *defaults
     steps:
       - attach_workspace:
           at: ~/project
       - run:
-          name: Deploy to NPM
-          command: ls dist
+          name: Maybe publish to npm
+          command: semantic-release
 
 workflows:
   version: 2
-  test_build_deploy:
+  test_build_release:
     jobs:
       - install_dependencies
 
@@ -101,15 +101,10 @@ workflows:
           requires:
             - compile_to_js
 
-      - deploy:
+      - release:
           requires:
             - lint
             - code_style
             - unit_tests
             - compile_to_js
             - generate_type_definitions
-          # filters:
-          #   tags:
-          #     only: /^v.*/
-          #   branches:
-          #     ignore: /.*/
