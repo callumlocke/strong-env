@@ -51,6 +51,9 @@ jobs:
           at: ~/project
       - run: yarn clean
       - run: yarn run babel-compile
+      - persist_to_workspace:
+          root: ~/project
+          paths: .
 
   generate_type_definitions:
     <<: *defaults
@@ -59,6 +62,9 @@ jobs:
           at: ~/project
       - run: yarn run tsc
       - run: yarn run flowgen dist/index.d.ts -o dist/index.js.flow
+      - persist_to_workspace:
+          root: ~/project
+          paths: .
 
   deploy:
     <<: *defaults
