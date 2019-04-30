@@ -49,6 +49,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/project
+      - run: yarn clean
       - run: yarn run babel-compile
 
   generate_type_definitions:
@@ -99,7 +100,7 @@ workflows:
             - lint
             - check_formatting
             - unit_tests
-            - build
+            - compile_to_js
             - generate_type_definitions
           # filters:
           #   tags:
