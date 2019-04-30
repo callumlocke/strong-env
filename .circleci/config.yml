@@ -21,7 +21,7 @@ jobs:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
       - persist_to_workspace:
           root: ~/project
-          paths: .
+          paths: node_modules
 
   lint:
     <<: *defaults
@@ -53,7 +53,7 @@ jobs:
       - run: yarn run babel-compile
       - persist_to_workspace:
           root: ~/project
-          paths: .
+          paths: dist
 
   generate_type_definitions:
     <<: *defaults
@@ -64,7 +64,7 @@ jobs:
       - run: yarn run flowgen dist/index.d.ts -o dist/index.js.flow
       - persist_to_workspace:
           root: ~/project
-          paths: .
+          paths: dist/**/*.{flow,d.ts}
 
   deploy:
     <<: *defaults
