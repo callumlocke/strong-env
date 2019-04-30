@@ -6,33 +6,78 @@ defaults: &defaults
     - image: circleci/node:8
 
 jobs:
-  test:
-    <<: *defaults  
+  install_dependencies:
+    <<: *defaults
     steps:
       - checkout
-
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-{{ checksum "yarn.lock" }}
           - v1-dependencies-
-
       - run: yarn install --frozen-lockfile
-
-      - run:
-          name: Run tests
-          command: yarn test
-
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+
+  lint:
+    <<: *defaults
+    steps:
+      - yarn
+  
+  check_formatting:
+    <<: *defaults
+    steps:
+      - run: yarn run formatting:check
+  
+  unit_tests:
+    <<: *defaults
+    steps:
+      - run: yarn run jest
+
+  test:
+    <<: *defaults  
+    steps:
+      - run:
+          name: Run tests
+          command: yarn test
 
       - persist_to_workspace:
           root: ~/repo
           paths: .
 
+  deploy:
+    <<: *defaults
+    steps:
+      - run:
+          name: Deploy to NPM
+          command: "echo 'TO DO: DEPLOY'"
+
 workflows:
   version: 2
-  only_test:
+  test_etc:
     jobs:
-      - test
+      - install_dependencies
+
+      - lint:
+          requires:
+            - install_dependencies
+
+      - check_formatting:
+          requires:
+            - install_dependencies
+
+      - unit_tests:
+          requires:
+            - install_dependencies
+
+      - deploy:
+          requires:
+            - lint
+            - check_formatting
+            - unit_tests
+          # filters:
+          #   tags:
+          #     only: /^v.*/
+          #   branches:
+          #     ignore: /.*/
