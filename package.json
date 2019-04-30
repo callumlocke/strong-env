@@ -25,13 +25,14 @@
   "files": [
     "dist"
   ],
+  "license": "MIT",
   "scripts": {
-    "clean": "rm -rf dist",
-    "build": "yarn clean && yarn babel-compile && yarn tsc && flowgen dist/index.d.ts -o dist/index.js.flow",
     "babel-compile": "babel --extensions '.ts' --out-dir dist src",
+    "build": "yarn clean && yarn babel-compile && yarn tsc && flowgen dist/index.d.ts -o dist/index.js.flow",
+    "clean": "rm -rf dist",
     "fix": "yarn run formatting:fix && yarn run linting:fix",
-    "formatting:fix": "yarn run prettier './**/*.js' './**/*.ts' './**/*.tsx' --write",
     "formatting:check": "yarn run prettier './**/*.js' './**/*.ts' './**/*.tsx' --check",
+    "formatting:fix": "yarn run prettier './**/*.js' './**/*.ts' './**/*.tsx' --write",
     "linting:check": "eslint --ext js,ts,tsx .",
     "linting:fix": "eslint --ext js,ts,tsx . --fix",
     "test": "yarn run formatting:check && yarn run linting:check"
