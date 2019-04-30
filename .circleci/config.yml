@@ -1,9 +1,110 @@
-version: 2.1
+version: 2
 
-orbs:
-    hello: circleci/hello-build@0.0.5
+defaults: &defaults
+  working_directory: ~/project
+  docker:
+    - image: circleci/node:8
+
+jobs:
+  install_dependencies:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "yarn.lock" }}
+          - v1-dependencies-
+      - run: yarn install --frozen-lockfile
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+      - persist_to_workspace:
+          root: ~/project
+          paths: .
+
+  lint:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run: yarn run lint:check
+  
+  code_style:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run: yarn run style:check
+  
+  unit_tests:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run: yarn run jest
+
+  compile_to_js:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run: yarn clean
+      - run: yarn run babel-compile
+      - persist_to_workspace:
+          root: ~/project
+          paths: dist
+
+  generate_type_definitions:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run: yarn run tsc
+      - run: yarn run flowgen dist/index.d.ts -o dist/index.js.flow
+      - persist_to_workspace:
+          root: ~/project
+          paths: dist
+
+  release:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: Maybe publish to npm
+          command: yarn run semantic-release
 
 workflows:
-    "Hello Workflow":
-        jobs:
-          - hello/hello-build
+  version: 2
+  test_build_release:
+    jobs:
+      - install_dependencies
+
+      - lint:
+          requires:
+            - install_dependencies
+
+      - code_style:
+          requires:
+            - install_dependencies
+
+      - unit_tests:
+          requires:
+            - install_dependencies
+      
+      - compile_to_js:
+          requires:
+            - install_dependencies
+      
+      - generate_type_definitions:
+          requires:
+            - compile_to_js
+
+      - release:
+          requires:
+            - lint
+            - code_style
+            - unit_tests
+            - compile_to_js
+            - generate_type_definitions
