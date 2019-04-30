@@ -44,12 +44,20 @@ jobs:
           at: ~/project
       - run: yarn run jest
 
-  build:
+  compile_to_js:
     <<: *defaults
     steps:
       - attach_workspace:
           at: ~/project
-      - run: yarn run build
+      - run: yarn run babel-compile
+
+  generate_type_definitions:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run: yarn run tsc
+      - run: yarn run flowgen dist/index.d.ts -o dist/index.js.flow
 
   deploy:
     <<: *defaults
@@ -78,9 +86,13 @@ workflows:
           requires:
             - install_dependencies
       
-      - build:
+      - compile_to_js:
           requires:
             - install_dependencies
+      
+      - generate_type_definitions:
+          requires:
+            - compile_to_js
 
       - deploy:
           requires:
@@ -88,6 +100,7 @@ workflows:
             - check_formatting
             - unit_tests
             - build
+            - generate_type_definitions
           # filters:
           #   tags:
           #     only: /^v.*/
