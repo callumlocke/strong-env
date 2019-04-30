@@ -30,7 +30,7 @@ jobs:
           at: ~/project
       - run: yarn run lint:check
   
-  check_style:
+  code_style:
     <<: *defaults
     steps:
       - attach_workspace:
@@ -85,7 +85,7 @@ workflows:
           requires:
             - install_dependencies
 
-      - check_style:
+      - code_style:
           requires:
             - install_dependencies
 
@@ -104,7 +104,7 @@ workflows:
       - deploy:
           requires:
             - lint
-            - check_style
+            - code_style
             - unit_tests
             - compile_to_js
             - generate_type_definitions

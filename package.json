@@ -31,15 +31,16 @@
     "dist"
   ],
   "license": "MIT",
+  "main": "dist",
   "scripts": {
     "babel-compile": "babel --extensions '.ts' --out-dir dist src",
     "build": "yarn clean && yarn babel-compile && yarn tsc && flowgen dist/index.d.ts -o dist/index.js.flow",
     "clean": "rm -rf dist",
     "fix": "yarn run style:fix && yarn run lint:fix",
-    "style:check": "yarn run prettier './**/*.js' './**/*.ts' './**/*.tsx' --check",
-    "style:fix": "yarn run prettier './**/*.js' './**/*.ts' './**/*.tsx' --write",
     "lint:check": "eslint --ext js,ts,tsx .",
     "lint:fix": "eslint --ext js,ts,tsx . --fix",
+    "style:check": "yarn run prettier './**/*.js' './**/*.ts' './**/*.tsx' --check",
+    "style:fix": "yarn run prettier './**/*.js' './**/*.ts' './**/*.tsx' --write",
     "test": "yarn run style:check && yarn run lint:check && yarn run jest"
   }
 }
