@@ -21,7 +21,7 @@ jobs:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
       - persist_to_workspace:
           root: ~/project
-          paths: node_modules
+          paths: .
 
   lint:
     <<: *defaults
