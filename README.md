@@ -1,6 +1,6 @@
 # strong-env
 
-Tiny Node.js library to for coercing environment variables into strongly typed values.
+Tiny Node.js library for coercing environment variables into strongly typed values.
 
 ## Installation
 
