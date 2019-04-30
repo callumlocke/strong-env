@@ -73,7 +73,7 @@ jobs:
           at: ~/project
       - run:
           name: Deploy to NPM
-          command: ls
+          command: ls dist
 
 workflows:
   version: 2
