@@ -67,7 +67,7 @@ jobs:
           at: ~/project
       - run:
           name: Deploy to NPM
-          command: "echo 'TO DO: DEPLOY'"
+          command: "ls dist"
 
 workflows:
   version: 2
