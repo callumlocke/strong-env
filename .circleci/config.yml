@@ -26,22 +26,30 @@ jobs:
   lint:
     <<: *defaults
     steps:
+      - attach_workspace:
+          at: ~/project
       - yarn
   
   check_formatting:
     <<: *defaults
     steps:
+      - attach_workspace:
+          at: ~/project
       - run: yarn run formatting:check
   
   unit_tests:
     <<: *defaults
     steps:
+      - attach_workspace:
+          at: ~/project
       - run: yarn run jest
 
 
   deploy:
     <<: *defaults
     steps:
+      - attach_workspace:
+          at: ~/project
       - run:
           name: Deploy to NPM
           command: "echo 'TO DO: DEPLOY'"
