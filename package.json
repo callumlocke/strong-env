@@ -41,7 +41,6 @@
     "fix": "yarn run style:fix && yarn run lint:fix",
     "lint:check": "eslint --ext js,ts,tsx .",
     "lint:fix": "eslint --ext js,ts,tsx . --fix",
-    "semantic-release": "semantic-release",
     "style:check": "yarn run prettier './**/*.js' './**/*.ts' './**/*.tsx' --check",
     "style:fix": "yarn run prettier './**/*.js' './**/*.ts' './**/*.tsx' --write",
     "test": "yarn run style:check && yarn run lint:check && yarn run jest"

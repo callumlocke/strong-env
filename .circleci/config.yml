@@ -73,7 +73,7 @@ jobs:
           at: ~/project
       - run:
           name: Maybe publish to npm
-          command: semantic-release
+          command: yarn run semantic-release
 
 workflows:
   version: 2
