@@ -28,14 +28,14 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/project
-      - run: yarn run linting:check
+      - run: yarn run lint:check
   
-  check_formatting:
+  check_style:
     <<: *defaults
     steps:
       - attach_workspace:
           at: ~/project
-      - run: yarn run formatting:check
+      - run: yarn run style:check
   
   unit_tests:
     <<: *defaults
@@ -67,7 +67,7 @@ jobs:
           at: ~/project
       - run:
           name: Deploy to NPM
-          command: "ls dist"
+          command: ls
 
 workflows:
   version: 2
@@ -79,7 +79,7 @@ workflows:
           requires:
             - install_dependencies
 
-      - check_formatting:
+      - check_style:
           requires:
             - install_dependencies
 
@@ -98,7 +98,7 @@ workflows:
       - deploy:
           requires:
             - lint
-            - check_formatting
+            - check_style
             - unit_tests
             - compile_to_js
             - generate_type_definitions
