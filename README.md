@@ -4,6 +4,8 @@ Tiny Node.js library to for coercing environment variables into strongly typed v
 
 ## Installation
 
+> WORK IN PROGRESS - NOT PUBLISHED YET – THIS WILL NOT WORK
+
 ```sh
 > npm install strong-env
 ```
@@ -25,16 +27,7 @@ export const API_HOSTNAME = env.string('API_HOSTNAME', 'https://localhost')
 - Each method automatically validates and coerces the value to the appropriate type.
 - You can provide a default value as a second argument, which will be returned if the specified env var is empty. If no default value is provided _and_ the specified env var is empty, it throws a `TypeError`.
   - An env var is considered 'empty' if its value is `undefined` _or_ an empty string.
-- If the environment variable is set to something invalid for the method you're using (such as `0` when using `env.port`), it will always throw an error (even if you provide a default value).
-
-### Methods
-
-– `env.port(name: string, fallback?: any)`
-
-- `env.boolean(name: string, fallback? any)`
-  - Acceptable values: `"true"`, `"false"`, `"1"`, `"0"`.
-  - Returns a `boolean`.
-
+- If the environment variable is set to something invalid for the method you're using (such 'foo' when using `env.number`, or `0` when using `env.port`), it will always throw an error, even if you provided a default value.
 
 ### Default types
 
