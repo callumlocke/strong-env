@@ -54,6 +54,8 @@ jobs:
       - persist_to_workspace:
           root: ~/project
           paths: dist
+      - store_artifacts:
+          path: dist
 
   generate_type_definitions:
     <<: *defaults
@@ -61,10 +63,12 @@ jobs:
       - attach_workspace:
           at: ~/project
       - run: yarn run tsc
-      - run: yarn run flowgen dist/index.d.ts -o dist/index.js.flow
+      - run: yarn run flowgen dist/index.d.ts -o dist/index.js.flow --add-flow-header
       - persist_to_workspace:
           root: ~/project
           paths: dist
+      - store_artifacts:
+          path: dist
 
   release:
     <<: *defaults
