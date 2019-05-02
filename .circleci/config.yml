@@ -54,6 +54,8 @@ jobs:
       - persist_to_workspace:
           root: ~/project
           paths: dist
+      - store_artifacts:
+          path: dist
 
   generate_type_definitions:
     <<: *defaults
@@ -65,6 +67,8 @@ jobs:
       - persist_to_workspace:
           root: ~/project
           paths: dist
+      - store_artifacts:
+          path: dist
 
   release:
     <<: *defaults
