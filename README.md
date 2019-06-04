@@ -1,7 +1,5 @@
 # strong-env
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/playpause/strong-env.svg)](https://greenkeeper.io/)
-
 Tiny Node.js library for coercing environment variables into strongly typed values.
 
 ## Installation
