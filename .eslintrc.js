@@ -43,6 +43,7 @@ module.exports = {
         'jest/no-identical-title': 'error',
         'jest/prefer-to-have-length': 'warn',
         'jest/valid-expect': 'error',
+        '@typescript-eslint/explicit-function-return-type': 'off',
       },
     },
   ],
