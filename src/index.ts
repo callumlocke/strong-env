@@ -23,7 +23,7 @@ interface StrongEnv {
 
 export const load = (rawEnv: RawEnv): StrongEnv => {
   const strongEnv: StrongEnv = {
-    boolean: (name: string, defaultValue?: any) => {
+    boolean: (name: string, defaultValue?: any): boolean => {
       const value = rawEnv[name]
 
       if (typeof value === 'string' && value.length > 0) {
@@ -50,7 +50,7 @@ export const load = (rawEnv: RawEnv): StrongEnv => {
       throw new TypeError(`Missing environment variable: ${name}`)
     },
 
-    string: (name: string, defaultValue?: any) => {
+    string: (name: string, defaultValue?: any): string => {
       const value = rawEnv[name]
 
       if (typeof value === 'string' && value.length > 0) return value
@@ -60,7 +60,7 @@ export const load = (rawEnv: RawEnv): StrongEnv => {
       throw new TypeError(`Missing environment variable: ${name}`)
     },
 
-    number: (name: string, defaultValue?: any) => {
+    number: (name: string, defaultValue?: any): number => {
       const value = rawEnv[name]
 
       if (typeof value === 'string') {
@@ -76,7 +76,7 @@ export const load = (rawEnv: RawEnv): StrongEnv => {
       throw new TypeError(`Missing environment variable: ${name}`)
     },
 
-    integer: (name: string, defaultValue?: any) => {
+    integer: (name: string, defaultValue?: any): number => {
       const value = rawEnv[name]
 
       if (typeof value === 'string') {
@@ -94,7 +94,7 @@ export const load = (rawEnv: RawEnv): StrongEnv => {
       throw new TypeError(`Missing environment variable: ${name}`)
     },
 
-    port: (name: string, defaultValue?: any) => {
+    port: (name: string, defaultValue?: any): number => {
       const value = rawEnv[name]
 
       if (typeof value === 'string') {

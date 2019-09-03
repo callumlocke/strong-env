@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: ['plugin:@typescript-eslint/recommended', 'airbnb'],
+  extends: ['plugin:@typescript-eslint/recommended', 'airbnb-base'],
   plugins: ['import', 'prettier', '@typescript-eslint'],
   parser: '@typescript-eslint/parser',
   env: {
@@ -43,6 +43,14 @@ module.exports = {
         'jest/no-identical-title': 'error',
         'jest/prefer-to-have-length': 'warn',
         'jest/valid-expect': 'error',
+        '@typescript-eslint/explicit-function-return-type': 'off',
+      },
+    },
+
+    {
+      files: ['**/*.js'],
+      rules: {
+        '@typescript-eslint/explicit-function-return-type': 'off',
       },
     },
   ],
