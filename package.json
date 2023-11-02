@@ -13,7 +13,10 @@
   ],
   "license": "MIT",
   "main": "dist",
-  "repository": "callumlocke/strong-env",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/callumlocke/strong-env.git"
+  },
   "scripts": {
     "build": "rm -rf dist && bun build ./src/index.ts --outdir=dist && bun tsc"
   }
