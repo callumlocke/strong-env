@@ -1,9 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-interface RawEnv {
-  [key: string]: string | undefined
-}
-
 interface StrongEnv {
   boolean(name: string): boolean
   boolean<Default>(name: string, defaultValue: Default): boolean | Default
@@ -21,7 +17,7 @@ interface StrongEnv {
   port<Default>(name: string, defaultValue: Default): number | Default
 }
 
-export const load = (rawEnv: RawEnv): StrongEnv => {
+export const load = (rawEnv: typeof process.env): StrongEnv => {
   const strongEnv: StrongEnv = {
     boolean: (name: string, defaultValue?: any): boolean => {
       const value = rawEnv[name]
@@ -29,10 +25,12 @@ export const load = (rawEnv: RawEnv): StrongEnv => {
       if (typeof value === 'string' && value.length > 0) {
         switch (value) {
           case 'false':
+          case 'FALSE':
           case '0':
             return false
 
           case 'true':
+          case 'TRUE':
           case '1':
             return true
 

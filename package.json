@@ -1,28 +1,8 @@
 {
   "name": "strong-env",
-  "version": "0.0.0-development",
+  "version": "1.1.0",
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/preset-typescript": "^7.3.3",
-    "@types/jest": "^24.0.18",
     "@types/node": "^12.7.3",
-    "@typescript-eslint/eslint-plugin": "^2.1.0",
-    "@typescript-eslint/parser": "^2.1.0",
-    "eslint": "^6.3.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-config-prettier": "^6.1.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jest": "^22.16.0",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-react": "^7.14.3",
-    "flowgen": "^1.10.0",
-    "jest": "^24.9.0",
-    "prettier": "^1.18.2",
-    "semantic-release": "^15.13.24",
-    "ts-jest": "^24.0.2",
     "typescript": "^3.6.2"
   },
   "engines": {
@@ -33,16 +13,8 @@
   ],
   "license": "MIT",
   "main": "dist",
-  "repository": "playpause/strong-env",
+  "repository": "callumlocke/strong-env",
   "scripts": {
-    "babel-compile": "babel --extensions '.ts' --out-dir dist src",
-    "build": "yarn clean && yarn babel-compile && yarn tsc && flowgen dist/index.d.ts -o dist/index.js.flow",
-    "clean": "rm -rf dist",
-    "fix": "yarn run style:fix && yarn run lint:fix",
-    "lint:check": "eslint --ext js,ts,tsx .",
-    "lint:fix": "eslint --ext js,ts,tsx . --fix",
-    "style:check": "yarn run prettier './**/*.js' './**/*.ts' './**/*.tsx' --check",
-    "style:fix": "yarn run prettier './**/*.js' './**/*.ts' './**/*.tsx' --write",
-    "test": "yarn run style:check && yarn run lint:check && yarn run jest"
+    "build": "rm -rf dist && bun build ./src/index.ts --outdir=dist && bun tsc"
   }
 }

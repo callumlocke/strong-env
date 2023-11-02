@@ -1,17 +1,14 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-		"target": "esnext",
-		"moduleResolution": "node",
-		"allowJs": false,
-		"strict": true,
-		"esModuleInterop": true,
-		"declaration": true,
-		"emitDeclarationOnly": true,
-		"rootDir": "src",
-		"outDir": "dist"
-	},
-	"exclude": [
-		"**/__tests__/**"
-	]
+    "target": "esnext",
+    "moduleResolution": "node",
+    "allowJs": false,
+    "strict": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "rootDir": "src",
+    "outDir": "dist"
+  }
 }
